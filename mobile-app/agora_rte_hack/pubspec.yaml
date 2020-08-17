@@ -51,6 +51,13 @@ flutter:
     - assets/google.svg
     - assets/facebook.svg
     - assets/google.png
+    - assets/Bleached.jpg
+    - assets/Interrupters.jpg
+    - assets/kodaline.jpg
+    - assets/linkin_park.jpg
+    - assets/Lumineers.jpg
+    - assets/Rob-Thomas.jpg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
