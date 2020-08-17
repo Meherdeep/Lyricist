@@ -1,9 +1,10 @@
-import 'package:agora_rte_hack/pages/homepage.dart';
 import 'package:agora_rte_hack/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      darkTheme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
   }
