@@ -40,9 +40,17 @@ class _SplashScreenState extends State<SplashScreen> {
               fit: BoxFit.fill,
             ),
           ),
-          Center(
-            child: Text('Compose.ly', style: bigBoldTextStyle,) 
+          Align(
+            alignment: Alignment(0, -0.7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.music_note,color: Colors.white,size: 30,),
+                Text('Compose.ly', style: bigBoldTextStyle,),
+              ],
+            ) 
           ),
+          
         ],
       ),
       
