@@ -38,10 +38,7 @@ class _AudienceWindowState extends State<AudienceWindow> {
                 ),
               ),
             ),
-            // Align(
-            //   alignment: Alignment(0.9, -0.8),
-            //   child: BroadcastingStatus('69'.toString()),
-            // ),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
