@@ -258,6 +258,7 @@ function updatePitch(time) {
 		noteElem.innerHTML = noteStrings[note % 12];
 		$(".final-note").append(noteStrings[note % 12] + "4, ");
 		// abcjs.renderAbc("paper", "X:1\nK:D\nDDAA|BBA2|\n");
+		
 	}
 
 	if (!window.requestAnimationFrame)
