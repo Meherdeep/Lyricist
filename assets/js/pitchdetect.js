@@ -116,6 +116,9 @@ function gotStream(stream) {
 
 var counter = 0;
 function toggleLiveInput() {
+	audioContext.resume().then(() => {
+		console.log('Playback resumed successfully.');
+	});
 	isPlaying = true;
 	counter++;
 	if (counter % 2 == 0) {
@@ -253,7 +256,7 @@ function updatePitch(time) {
 		pitch = ac;
 		var note = noteFromPitch(pitch);
 		noteElem.innerHTML = noteStrings[note % 12];
-		$(".final-note").append(noteStrings[note % 12] + " ");
+		$(".final-note").append(noteStrings[note % 12] + "4, ");
 		// abcjs.renderAbc("paper", "X:1\nK:D\nDDAA|BBA2|\n");
 	}
 
