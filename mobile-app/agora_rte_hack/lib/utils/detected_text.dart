@@ -1,1 +1,1 @@
-final detectedText = <String>[];
+var detectedText = <String>[];

@@ -1,10 +1,11 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:agora_rte_hack/utils/detected_text.dart';
 import 'package:agora_rte_hack/widgets/music_sheet.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sheet_music/sheet_music.dart';
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
-
+import 'package:random_string/random_string.dart';
 import 'broadcaster_status.dart';
 
 class AudienceView extends StatefulWidget {
@@ -31,6 +32,7 @@ class _AudienceViewState extends State<AudienceView> {
     AgoraRtcEngine.destroy();
     // AgoraRtcEngine.removeNativeView(_viewId);
     super.dispose();
+    detectedText.clear();
   }
 
   @override
@@ -173,16 +175,16 @@ class _AudienceViewState extends State<AudienceView> {
         Align(
           alignment: Alignment(0, 0.7),
           child: CarouselSlider.builder(
-            itemCount: colorTone.length, 
+            itemCount: 10,
             itemBuilder: (BuildContext context, int index){
-              return Text(musicScales.toString(), style: TextStyle(color: Colors.white, fontFamily: 'Lassus', fontSize: 120));
+              return Text(randomString(index), style: TextStyle(color: Colors.white, fontFamily: 'Lassus', fontSize: 120));
             }, 
             options: CarouselOptions(
               autoPlay: true,
-              autoPlayInterval: Duration(milliseconds: 5)
+              autoPlayInterval: Duration(seconds: 1)
             )
-          ) 
-        ),
+            ) 
+          )
         ],      
       ),
     );

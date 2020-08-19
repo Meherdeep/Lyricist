@@ -1,7 +1,14 @@
+import 'package:agora_rte_hack/utils/detected_text.dart';
+
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtm/agora_rtm.dart';
 import 'package:speech_recognition/speech_recognition.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:random_string/random_string.dart';
+
 
 class RealTimeMessaging extends StatefulWidget {
   final String channelName;
@@ -29,20 +36,42 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
 
   String resultText = '';
 
+  bool _hasSpeech = false;
+  double level = 0.0;
+  double minSoundLevel = 50000;
+  double maxSoundLevel = -50000;
+  String lastWords = "";
+  String lastError = "";
+  String lastStatus = "";
+  String _currentLocaleId = "";
+  List<LocaleName> _localeNames = [];
+
+  final SpeechToText speech = SpeechToText();
+
   @override
   void initState() {
     super.initState();
     _createClient();
+    initSpeechState();
   }
 
-  void initSpeechRecognizer(){ 
-    _speechRecognition = SpeechRecognition();
-    _speechRecognition.setAvailabilityHandler((bool result) => setState(()=>_isAvailable=result));
-    _speechRecognition.setRecognitionStartedHandler(() => setState(()=> _isListening=true));
-    _speechRecognition.setRecognitionResultHandler((String speech) => setState(()=>resultText=speech));
-    _speechRecognition.setRecognitionCompleteHandler(() => setState(()=> _isListening = false));
-    _speechRecognition.activate().then((result) => setState(()=>_isAvailable=result));
+  Future<void> initSpeechState() async {
+    bool hasSpeech = await speech.initialize(
+        onError: errorListener, onStatus: statusListener);
+    if (hasSpeech) {
+      _localeNames = await speech.locales();
+
+      var systemLocale = await speech.systemLocale();
+      _currentLocaleId = systemLocale.localeId;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _hasSpeech = hasSpeech;
+    });
   }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,27 +149,27 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
       return Container();
     }
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                   children: <Widget>[
                     Container(
-                      width: MediaQuery.of(context).size.width *0.75,
+                      width: MediaQuery.of(context).size.width *0.5,
                       child: TextFormField(
                         controller: _channelMessageController,
                         decoration: InputDecoration(
                           hintText: 'Comment...',
-                          hintStyle: TextStyle(color: Colors.white70),
+                          hintStyle: TextStyle(color: Color(0xFFFDCD33)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white70, width: 2),
+                            borderSide: BorderSide(color: Color(0xFFFDCD33), width: 2),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white70, width: 2),
+                            borderSide: BorderSide(color: Color(0xFFFDCD33), width: 2),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white70, width: 2),
+                            borderSide: BorderSide(color: Color(0xFFFDCD33), width: 2),
                           ), 
                         ),
                       ),
@@ -149,12 +178,12 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(40)),
                         border: Border.all(
-                          color: Colors.white70, 
+                          color: Color(0xFFFDCD33), 
                           width: 2,
                         )
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.send, color: Colors.white70), 
+                        icon: Icon(Icons.send, color: Color(0xFFFDCD33)), 
                         onPressed: _toggleSendChannelMessage, 
                       ),
                     ),
@@ -162,14 +191,29 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(40)),
                         border: Border.all(
-                          color: Colors.white70, 
+                          color: Color(0xFFFDCD33), 
                           width: 2,
                         )
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.music_note, color: Colors.white70), 
-                        onPressed: null, 
+                        icon: Icon(Icons.music_note), 
+                        onPressed: !_hasSpeech || speech.isListening
+                          ? null
+                          : startListening,
+                      ) 
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        border: Border.all(
+                          color: Color(0xFFFDCD33), 
+                          width: 2,
+                        )
                       ),
+                      child: IconButton(
+                        icon: Icon(Icons.music_note), 
+                        onPressed: speech.isListening ? stopListening : null,
+                      ) 
                     ),
                   ],
                 );
@@ -233,5 +277,62 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
     setState(() {
       _infoStrings.insert(0, info);
     });
+  }
+
+  void errorListener(SpeechRecognitionError error) {
+    // print("Received error status: $error, listening: ${speech.isListening}");
+    setState(() {
+      lastError = "${error.errorMsg} - ${error.permanent}";
+    });
+  }
+
+  void statusListener(String status) {
+    // print(
+    // "Received listener status: $status, listening: ${speech.isListening}");
+    setState(() {
+      lastStatus = "$status";
+    });
+  }
+
+  _switchLang(selectedVal) {
+    setState(() {
+      _currentLocaleId = selectedVal;
+    });
+    print(selectedVal);
+  }
+
+  void startListening() {
+    lastWords = "";
+    lastError = "";
+    speech.listen(
+      onResult: resultListener,
+      // listenFor: Duration(seconds: 60),
+      // pauseFor: Duration(seconds: 3),
+      localeId: _currentLocaleId,
+      // onSoundLevelChange: soundLevelListener,
+      cancelOnError: true,
+      partialResults: true,
+      // onDevice: true,
+      // listenMode: ListenMode.confirmation,
+      // sampleRate: 44100,
+    );
+    setState(() {});
+  }
+
+  void stopListening() {
+    speech.stop();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    detectedText = lastWords.split(' ');
+    setState(() {
+      lastWords = "${result.recognizedWords} - ${result.finalResult}";
+      detectedText.add(lastWords);
+    });
+    print(lastWords);
+    print(detectedText);
   }
 }
