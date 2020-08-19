@@ -20,6 +20,7 @@ class _AudienceViewState extends State<AudienceView> {
   int broadcasterUid = 0;
   final musicScales = <String>['C Major','D Major','A Major', 'E Major','G Major','F Major','C Major'];
   final musicPitch = <String>['C4','D4','A4','E4','G4','F4','C1'];
+  final colorTone = <Color>[Colors.green,Colors.red,Colors.yellow];
 
   @override
   void dispose() {
@@ -144,31 +145,44 @@ class _AudienceViewState extends State<AudienceView> {
           alignment: Alignment(0.9, -0.8),
           child: BroadcastingStatus(_users.length.toString()),
         ),
+        // Align(
+        //   alignment: Alignment(0,0.7),
+        //   child: Container(
+        //     height: MediaQuery.of(context).size.height*0.2,
+        //     width: MediaQuery.of(context).size.width,
+        //     child: CarouselSlider.builder(
+        //       itemCount: musicScales.length,
+        //       itemBuilder: (BuildContext context, int index){
+        //         return SheetMusic(
+        //           trebleClef: true, 
+        //           scale: musicScales[index], 
+        //           pitch: musicPitch[index],
+        //           backgroundColor: Colors.transparent,
+        //           hide: false,
+        //           height: MediaQuery.of(context).size.height*0.18,
+        //         );
+        //       }, 
+        //       options: CarouselOptions(
+        //         autoPlay: true,
+        //         autoPlayInterval: Duration(seconds: 1),
+        //         scrollDirection: Axis.horizontal
+        //       )
+        //     ),
+        //   )
+        // )
         Align(
-          alignment: Alignment(0,0.7),
-          child: Container(
-            height: MediaQuery.of(context).size.height*0.2,
-            width: MediaQuery.of(context).size.width,
-            child: CarouselSlider.builder(
-              itemCount: musicScales.length,
-              itemBuilder: (BuildContext context, int index){
-                return SheetMusic(
-                  trebleClef: true, 
-                  scale: musicScales[index], 
-                  pitch: musicPitch[index],
-                  backgroundColor: Colors.transparent,
-                  hide: false,
-                  height: MediaQuery.of(context).size.height*0.18,
-                );
-              }, 
-              options: CarouselOptions(
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 1),
-                scrollDirection: Axis.horizontal
-              )
-            ),
-          )
-        )
+          alignment: Alignment(0, 0.7),
+          child: CarouselSlider.builder(
+            itemCount: colorTone.length, 
+            itemBuilder: (BuildContext context, int index){
+              return Text(musicScales.toString(), style: TextStyle(color: Colors.white, fontFamily: 'Lassus', fontSize: 120));
+            }, 
+            options: CarouselOptions(
+              autoPlay: true,
+              autoPlayInterval: Duration(milliseconds: 5)
+            )
+          ) 
+        ),
         ],      
       ),
     );

@@ -1,6 +1,7 @@
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtm/agora_rtm.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 class RealTimeMessaging extends StatefulWidget {
   final String channelName;
@@ -21,6 +22,12 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
   AgoraRtmClient _client;
   AgoraRtmChannel _channel;
   
+  SpeechRecognition _speechRecognition;
+
+  bool _isAvailable = true;
+  bool _isListening = false;
+
+  String resultText = '';
 
   @override
   void initState() {
@@ -28,6 +35,14 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
     _createClient();
   }
 
+  void initSpeechRecognizer(){ 
+    _speechRecognition = SpeechRecognition();
+    _speechRecognition.setAvailabilityHandler((bool result) => setState(()=>_isAvailable=result));
+    _speechRecognition.setRecognitionStartedHandler(() => setState(()=> _isListening=true));
+    _speechRecognition.setRecognitionResultHandler((String speech) => setState(()=>resultText=speech));
+    _speechRecognition.setRecognitionCompleteHandler(() => setState(()=> _isListening = false));
+    _speechRecognition.activate().then((result) => setState(()=>_isAvailable=result));
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -142,7 +157,20 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
                         icon: Icon(Icons.send, color: Colors.white70), 
                         onPressed: _toggleSendChannelMessage, 
                       ),
-                    )
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        border: Border.all(
+                          color: Colors.white70, 
+                          width: 2,
+                        )
+                      ),
+                      child: IconButton(
+                        icon: Icon(Icons.music_note, color: Colors.white70), 
+                        onPressed: null, 
+                      ),
+                    ),
                   ],
                 );
   }
