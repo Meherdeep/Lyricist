@@ -38,6 +38,8 @@ dependencies:
   permission_handler: ^5.0.1
   sheet_music: ^0.3.0
   carousel_slider: ^2.2.1
+  flutter_text_to_speech: ^3.0.7
+  speech_recognition: ^0.3.0+1
 
 
 
@@ -101,6 +103,11 @@ flutter:
           weight: 600
         - asset: assets/fonts/Cabin-Bold.ttf
           weight: 700
+
+    - family: Lassus
+      fonts:
+        - asset: assets/fonts/Lassus.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

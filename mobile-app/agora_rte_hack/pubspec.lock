@@ -165,6 +165,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_text_to_speech:
+    dependency: "direct main"
+    description:
+      name: flutter_text_to_speech
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.7"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -371,6 +378,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  speech_recognition:
+    dependency: "direct main"
+    description:
+      name: speech_recognition
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0+1"
   stack_trace:
     dependency: transitive
     description:
