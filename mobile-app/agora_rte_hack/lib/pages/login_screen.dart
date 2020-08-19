@@ -27,12 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.black,
-            child: Image.asset('assets/notes.gif'),
-          ),
+          // Container(
+          //   height: MediaQuery.of(context).size.height,
+          //   width: MediaQuery.of(context).size.width,
+          //   color: Colors.black,
+          //   child: Image.asset('assets/notes.gif'),
+          // ),
           SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Center(

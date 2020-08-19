@@ -1,4 +1,8 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:agora_rte_hack/utils/detected_text.dart';
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:random_string/random_string.dart';
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
 
@@ -128,6 +132,8 @@ class _BroadcasterViewState extends State<BroadcasterView> {
     print(_infoStrings);
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,6 +146,19 @@ class _BroadcasterViewState extends State<BroadcasterView> {
           AgoraRtcEngine.enableVideo();
           AgoraRtcEngine.setupLocalVideo(_viewId, VideoRenderMode.Fit);
         }),
+        Align(
+          alignment: Alignment(0, 0.7),
+          child: CarouselSlider.builder(
+            itemCount: 8,
+            itemBuilder: (BuildContext context, int index){
+              return Text(randomString(index), style: TextStyle(color: Colors.white, fontFamily: 'Lassus', fontSize: 120));
+            }, 
+            options: CarouselOptions(
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 1)
+            )
+            ) 
+          )
         ],
       )
     );

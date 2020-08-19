@@ -41,12 +41,12 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           Align(
-            alignment: Alignment(0, -0.7),
+            alignment: Alignment(0, 0.7),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.music_note,color: Colors.white,size: 30,),
-                Text('Compose.ly', style: bigBoldTextStyle,),
+                Icon(Icons.music_note,color: Color(0xFFFDCD33),),
+                Text('Lyricist', style: bigBoldTextStyle.copyWith(color: Color(0xFFFDCD33)),),
               ],
             ) 
           ),
