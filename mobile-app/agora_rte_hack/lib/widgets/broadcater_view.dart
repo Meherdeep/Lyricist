@@ -1,6 +1,8 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-import 'package:agora_rte_hack/utils/appID.dart';
+import '../utils/appID.dart';
 import 'package:flutter/material.dart';
+
+import 'broadcaster_status.dart';
 
 class BroadcasterView extends StatefulWidget {
   final String channelName;
@@ -59,8 +61,6 @@ class _BroadcasterViewState extends State<BroadcasterView> {
     await AgoraRtcEngine.enableVideo();
     AgoraRtcEngine.setChannelProfile(ChannelProfile.LiveBroadcasting);
     AgoraRtcEngine.setClientRole(ClientRole.Broadcaster);
-    
-    //AgoraRtcEngine.startPreview();
   }
 
   /// agora event handlers
@@ -133,13 +133,17 @@ class _BroadcasterViewState extends State<BroadcasterView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: AgoraRtcEngine.createNativeView((viewId){
-        _viewId = viewId;
-      AgoraRtcEngine.joinChannel(null, widget.channelName, null, broadcasterUid);
-      AgoraRtcEngine.startPreview();
-      AgoraRtcEngine.enableVideo();
-      AgoraRtcEngine.setupLocalVideo(_viewId, VideoRenderMode.Fit);
-      }),
+      child: Stack(
+        children: <Widget>[
+          AgoraRtcEngine.createNativeView((viewId){
+          _viewId = viewId;
+          AgoraRtcEngine.joinChannel(null, widget.channelName, null, broadcasterUid);
+          AgoraRtcEngine.startPreview();
+          AgoraRtcEngine.enableVideo();
+          AgoraRtcEngine.setupLocalVideo(_viewId, VideoRenderMode.Fit);
+        }),
+        ],
+      )
     );
   }
 }

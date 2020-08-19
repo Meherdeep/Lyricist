@@ -1,6 +1,8 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-import 'package:agora_rte_hack/utils/appID.dart';
+import '../utils/appID.dart';
 import 'package:flutter/material.dart';
+
+import 'broadcaster_status.dart';
 
 class AudienceView extends StatefulWidget {
   final String channelName;
@@ -134,6 +136,10 @@ class _AudienceViewState extends State<AudienceView> {
       child: Stack(
         children: <Widget>[
         AgoraRenderWidget(broadcasterUid),
+        Align(
+          alignment: Alignment(0.9, -0.8),
+          child: BroadcastingStatus(_users.length.toString()),
+        ),
         ],      
       ),
     );

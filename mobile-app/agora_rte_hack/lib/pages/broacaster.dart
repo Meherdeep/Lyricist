@@ -1,6 +1,6 @@
-import 'package:agora_rte_hack/widgets/broadcaster_status.dart';
-import 'package:agora_rte_hack/widgets/broadcater_view.dart';
-import 'package:agora_rte_hack/widgets/rtm.dart';
+import '../widgets/broadcaster_status.dart';
+import '../widgets/broadcater_view.dart';
+import '../widgets/rtm.dart';
 import 'package:flutter/material.dart';
 
 class BroadcasterWindow extends StatefulWidget {
@@ -26,10 +26,6 @@ class _BroadcasterWindowState extends State<BroadcasterWindow> {
                   child: BroadcasterView(widget.channelName),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment(-0.9, -0.8),
-              child: BroadcastingStatus('69'.toString()),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

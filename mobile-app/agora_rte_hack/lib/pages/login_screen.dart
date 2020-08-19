@@ -5,7 +5,7 @@ import 'package:agora_rte_hack/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -118,7 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     width: MediaQuery.of(context).size.width*0.35,
                     child: MaterialButton(
-                      onPressed:(){
+                      onPressed:() async{
+                        await _handleCameraAndMic(Permission.camera);
+                        await _handleCameraAndMic(Permission.microphone);
                         Navigator.push(
                           context, 
                           MaterialPageRoute(builder: (context)=>MyHomePage())
@@ -203,6 +205,11 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<void> _handleCameraAndMic(Permission permission) async {
+    final status = await permission.request();
+    print(status);
   }
 
 }

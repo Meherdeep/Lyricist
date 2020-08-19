@@ -1,7 +1,5 @@
-import 'package:agora_rte_hack/utils/appID.dart';
+import '../utils/appID.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:agora_rtm/agora_rtm.dart';
 
 class RealTimeMessaging extends StatefulWidget {
@@ -56,6 +54,7 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
     _client.onMessageReceived = (AgoraRtmMessage message, String peerId) {
       _logPeer("Peer msg: " + peerId + ", msg: " + message.text);
     };
+    
     _client.onConnectionStateChanged = (int state, int reason) {
       print('Connection state changed: ' +
           state.toString() +
@@ -69,8 +68,7 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
         });
       }
     };
-
-    String userId = widget.userName;
+    String userId = widget.channelName;
     await _client.login(null, userId);
         print('Login success: ' + userId);
         setState(() {
@@ -166,7 +164,7 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
                       child: Container(
                         padding: EdgeInsets.only(left: 5, right: 5),
                         color: Colors.white,
-                        child: _infoStrings[i].startsWith('%') ? Text(_infoStrings[i].substring(1), maxLines: 10, overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,style: TextStyle(color: Colors.black),): Text(_infoStrings[i], maxLines: 10, overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,style: TextStyle(color: Colors.black),),
+                        child: _infoStrings[i].startsWith('%')? Text(_infoStrings[i].substring(1), maxLines: 10, overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,style: TextStyle(color: Colors.black), ): Text(_infoStrings[i], maxLines: 10, overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.black),),
                       ),
                     ),
                   ),
@@ -186,7 +184,6 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
       return;
     }
     try {
-      
       await _channel.sendMessage(AgoraRtmMessage.fromText(text));
       _log(text);
       _channelMessageController.clear();
@@ -199,14 +196,14 @@ class _RealTimeMessagingState extends State<RealTimeMessaging> {
     info = '%'+info;
     print(info);
     setState(() {
-      _infoStrings.insert(0,info);
+      _infoStrings.insert(0, info);
     });
     
   }
   void _log(String info) {
     print(info);
     setState(() {
-      _infoStrings.insert(0,info);
+      _infoStrings.insert(0, info);
     });
   }
 }

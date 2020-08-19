@@ -1,6 +1,6 @@
-import 'package:agora_rte_hack/widgets/audience_view.dart';
-import 'package:agora_rte_hack/widgets/broadcaster_status.dart';
-import 'package:agora_rte_hack/widgets/rtm.dart';
+import '../widgets/audience_view.dart';
+import '../widgets/broadcaster_status.dart';
+import '../widgets/rtm.dart';
 import 'package:flutter/material.dart';
 
 class AudienceWindow extends StatefulWidget {
@@ -33,20 +33,16 @@ class _AudienceWindowState extends State<AudienceWindow> {
                 alignment: Alignment(-0.9, -0.8),
                 child: Row(
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 10,
-                      backgroundImage: AssetImage('assets/logo.png'),
-                      backgroundColor: Color.fromRGBO(255, 255, 255, 0),
-                    ),
-                    Text('Agora.io', style: TextStyle(color: Color.fromRGBO(45, 156, 215, 1)),)
+                    Icon(Icons.music_note, color: Color(0xFFFDCD33), size: 15,),
+                    Text('Lyricist', style: TextStyle(color: Color(0xFFFDCD33)),)
                   ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment(0.9, -0.8),
-              child: BroadcastingStatus('69'.toString()),
-            ),
+            // Align(
+            //   alignment: Alignment(0.9, -0.8),
+            //   child: BroadcastingStatus('69'.toString()),
+            // ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
