@@ -36,6 +36,10 @@ dependencies:
   firebase_auth: ^0.18.0
   google_sign_in: ^4.4.4
   permission_handler: ^5.0.1
+  sheet_music: ^0.3.0
+  carousel_slider: ^2.2.1
+
+
 
 dev_dependencies:
   flutter_test:

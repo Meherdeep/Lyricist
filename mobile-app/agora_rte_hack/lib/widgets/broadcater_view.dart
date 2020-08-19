@@ -2,8 +2,6 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
 
-import 'broadcaster_status.dart';
-
 class BroadcasterView extends StatefulWidget {
   final String channelName;
   BroadcasterView(this.channelName);

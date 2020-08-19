@@ -1,4 +1,7 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+import 'package:agora_rte_hack/widgets/music_sheet.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sheet_music/sheet_music.dart';
 import '../utils/appID.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +18,8 @@ class _AudienceViewState extends State<AudienceView> {
   static final _users = <int>[];
   final _infoStrings = <String>[];
   int broadcasterUid = 0;
-  
+  final musicScales = <String>['C Major','D Major','A Major', 'E Major','G Major','F Major','C Major'];
+  final musicPitch = <String>['C4','D4','A4','E4','G4','F4','C1'];
 
   @override
   void dispose() {
@@ -140,6 +144,31 @@ class _AudienceViewState extends State<AudienceView> {
           alignment: Alignment(0.9, -0.8),
           child: BroadcastingStatus(_users.length.toString()),
         ),
+        Align(
+          alignment: Alignment(0,0.7),
+          child: Container(
+            height: MediaQuery.of(context).size.height*0.2,
+            width: MediaQuery.of(context).size.width,
+            child: CarouselSlider.builder(
+              itemCount: musicScales.length,
+              itemBuilder: (BuildContext context, int index){
+                return SheetMusic(
+                  trebleClef: true, 
+                  scale: musicScales[index], 
+                  pitch: musicPitch[index],
+                  backgroundColor: Colors.transparent,
+                  hide: false,
+                  height: MediaQuery.of(context).size.height*0.18,
+                );
+              }, 
+              options: CarouselOptions(
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 1),
+                scrollDirection: Axis.horizontal
+              )
+            ),
+          )
+        )
         ],      
       ),
     );
