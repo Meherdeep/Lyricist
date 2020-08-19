@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1090907532134",
+    "firebase_url": "https://rte-hack.firebaseio.com",
+    "project_id": "rte-hack",
+    "storage_bucket": "rte-hack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090907532134:android:cdffed94abb7a0d010b6a7",
+        "android_client_info": {
+          "package_name": "com.example.agora_rte_hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090907532134-ga9mc009b8shge55eka8mc7ur8p6ldjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQBR9Ba3EfbxKEoYp7DapKGxwp-MDyT_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090907532134-ga9mc009b8shge55eka8mc7ur8p6ldjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

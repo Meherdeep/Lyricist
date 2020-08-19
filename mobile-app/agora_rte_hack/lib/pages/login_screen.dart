@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:agora_rte_hack/pages/homepage.dart';
 import 'package:agora_rte_hack/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -10,12 +13,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black,
+            child: Image.asset('assets/notes.gif'),
+          ),
           SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Center(
@@ -43,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
-                          borderSide: BorderSide(color: Colors.white,)
+                          borderSide: BorderSide(color: Colors.white60,)
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
@@ -65,16 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width*0.8,
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password',
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
-                          borderSide: BorderSide(color: Colors.white) 
+                          borderSide: BorderSide(color: Colors.white60) 
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
-                          borderSide: BorderSide(color: Colors.white,)
+                          borderSide: BorderSide(color: Colors.white60,)
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
@@ -95,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFFCD2F51),
+                      color: Color(0xFFFDCD33),
                       borderRadius: BorderRadius.circular(40)
                     ),
                     width: MediaQuery.of(context).size.width*0.35,
@@ -110,7 +128,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.08,
+                    height: MediaQuery.of(context).size.height*0.03,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.6,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Don\'t have an account?', style: TextStyle(color: Colors.white60), ),
+                        FlatButton(
+                          onPressed: null, 
+                          child: Text('Sign Up', style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),)
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.03,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,6 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         CircleAvatar(
                           backgroundImage: ExactAssetImage('assets/google.png'),
+                          child: FlatButton(onPressed: _handleGoogleSignIn, child: null),
                         )
                       ],
                     ),
@@ -160,4 +196,13 @@ class _LoginScreenState extends State<LoginScreen> {
       
     );
   }
+
+  Future<void> _handleGoogleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
 }

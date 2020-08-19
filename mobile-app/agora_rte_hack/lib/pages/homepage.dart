@@ -1,7 +1,10 @@
+import 'package:agora_rte_hack/pages/audience.dart';
+import 'package:agora_rte_hack/pages/profile.dart';
 import 'package:agora_rte_hack/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:random_string/random_string.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -28,9 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
     audioPlayer = null;
   }
   
-  List<String> bgLocation = ['assets/kodaline.jpg','assets/Bleached.jpg','assets/Interrupters.jpg','assets/linkin_park.jpg','assets/Lumineers.jpg','assets/Rob-Thomas.jpg'];
+  List<String> bgLocation = ['assets/linkin_park.jpg','assets/Bleached.jpg','assets/kodaline.jpg','assets/Lumineers.jpg','assets/Interrupters.jpg','assets/Rob-Thomas.jpg'];
   
-  List<String> artistName = ['Ralph','Connie','Niall','Troy','Herman','Douglas'];
+  List<String> artistName = ['Ralph','Connie','Niall','Troy','Herman','Grandpa'];
 
   List<String> albumCovers = ['assets/1.png','assets/2.png','assets/3.png'];
 
@@ -64,6 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
       onChanged: null
     );
   }
+
+  
   
   @override
   Widget build(BuildContext context) {
@@ -84,7 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
               Icons.person,
               color: Colors.white,
             ), 
-            onPressed: null
+            onPressed: (){
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context)=>ArtistProfile()
+                )
+              );
+            }
           )
         ],
         backgroundColor: Colors.transparent,
@@ -118,9 +130,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       ), 
                       onPressed: null
                     ),
-                    Text(
-                      artistName[position], 
-                      style: artistNameTextStyle
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(
+                            builder: 
+                            (context)=>AudienceWindow(
+                              artistName[position], 
+                              randomString(6)
+                              )
+                            )
+                          );
+                        },
+                      child: Text(
+                        artistName[position], 
+                        style: artistNameTextStyle
+                      ),
                     ),
                     IconButton(
                       icon: Icon(
