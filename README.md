@@ -2,10 +2,10 @@
 
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/akshatvg/Lyricist?logo=github&style=social)](https://github.com/akshatvg/) [![GitHub last commit](https://img.shields.io/github/last-commit/akshatvg/Lyricist?style=social&logo=git)](https://github.com/akshatvg/) [![GitHub stars](https://img.shields.io/github/stars/akshatvg/Lyricist?style=social)](https://github.com/akshatvg/Lyricist/stargazers) [![GitHub forks](https://img.shields.io/github/forks/akshatvg/Lyricist?style=social&logo=git)](https://github.com/akshatvg/Lyricist/network) [![Netlify Status](https://api.netlify.com/api/v1/badges/710e7028-fea0-41d1-a1aa-e636386222b7/deploy-status)](https://app.netlify.com/sites/lyricist-agora/deploys)
 
-Lyricist helps get musical notes from online music classes automatically while also grading a student for his/her performance that day.
+Lyricist helps get musical notes from online music classes automatically.
 
 <p align="center">
-<a href="https://Lyricist.akshatvg.com">
+<a href="https://lyricist.akshatvg.com">
 <img src="https://github.com/akshatvg/Lyricist/blob/master/assets/img/logo.png" width="200px" height="200px" alt="Lyricist Logo"/>
 </a>
 </p>
