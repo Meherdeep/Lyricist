@@ -1,3 +1,4 @@
+import 'package:agora_rte_hack/pages/broacaster.dart';
 import 'package:flutter/material.dart';
 
 class ArtistProfile extends StatefulWidget {
@@ -100,14 +101,42 @@ class _ArtistProfileState extends State<ArtistProfile> {
           ),
           Align(
             alignment: Alignment(0, 0.5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Keyboard'),
-                Text('Guitar'),
-                Text('Drums')
+                Icon(Icons.music_note, size: 15,),
+                Text('Keyboard', style: TextStyle(fontSize: 15),),
               ],
             ),
+          ),
+          Align(
+            alignment: Alignment(0, 0.6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.music_note, size: 15,),
+                Text('Drums', style: TextStyle(fontSize: 15)),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment(0,0.9),
+            child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFDCD33),
+                      borderRadius: BorderRadius.circular(40)
+                    ),
+                    width: MediaQuery.of(context).size.width*0.35,
+                    child: MaterialButton(
+                      onPressed:(){
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context)=>BroadcasterWindow('artist', 'Luke Graham'))
+                        );
+                      },
+                      child: Text('Go Live!'), 
+                    )
+                  ),
           )
         ],
       ),
