@@ -306,4 +306,4 @@ $(function () {
   loader();
 });
 
-console.clear();
+// console.clear();

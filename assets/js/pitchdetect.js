@@ -37,7 +37,7 @@ var detectorElem,
 	noteElem,
 	detuneElem,
 	detuneAmount;
-var songPath = "../sounds/whistling3.ogg";
+var songPath = "../assets/sounds/whistling3.mp3";
 
 window.onload = function () {
 	audioContext = new AudioContext();
@@ -114,8 +114,13 @@ function gotStream(stream) {
 	updatePitch();
 }
 
-function togglePlayback() {
-	if (isPlaying) {
+var counter = 0;
+function toggleLiveInput() {
+	isPlaying = true;
+	counter++;
+	if (counter % 2 == 0) {
+		$("#record-icon").removeClass("fa-microphone-slash");
+		$("#record-icon").addClass("fa-microphone-alt");
 		//stop playing and return
 		sourceNode.stop(0);
 		sourceNode = null;
@@ -124,24 +129,51 @@ function togglePlayback() {
 		if (!window.cancelAnimationFrame)
 			window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
 		window.cancelAnimationFrame(rafID);
-		return "start";
 	}
-
-	sourceNode = audioContext.createBufferSource();
-	sourceNode.buffer = theBuffer;
-	sourceNode.loop = true;
-
-	analyser = audioContext.createAnalyser();
-	analyser.fftSize = 2048;
-	sourceNode.connect(analyser);
-	analyser.connect(audioContext.destination);
-	sourceNode.start(0);
-	isPlaying = true;
-	isLiveInput = false;
-	updatePitch();
-
-	return "stop";
+	$("#record-icon").removeClass("fa-microphone-alt");
+	$("#record-icon").addClass("fa-microphone-slash");
+	getUserMedia(
+		{
+			"audio": {
+				"mandatory": {
+					"googEchoCancellation": "false",
+					"googAutoGainControl": "false",
+					"googNoiseSuppression": "false",
+					"googHighpassFilter": "false"
+				},
+				"optional": []
+			},
+		}, gotStream);
 }
+
+// function togglePlayback() {
+// 	if (isPlaying) {
+// 		//stop playing and return
+// 		sourceNode.stop(0);
+// 		sourceNode = null;
+// 		analyser = null;
+// 		isPlaying = false;
+// 		if (!window.cancelAnimationFrame)
+// 			window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
+// 		window.cancelAnimationFrame(rafID);
+// 		return "start";
+// 	}
+
+// 	sourceNode = audioContext.createBufferSource();
+// 	sourceNode.buffer = theBuffer;
+// 	sourceNode.loop = false;
+
+// 	analyser = audioContext.createAnalyser();
+// 	analyser.fftSize = 2048;
+// 	sourceNode.connect(analyser);
+// 	analyser.connect(audioContext.destination);
+// 	sourceNode.start(0);
+// 	isPlaying = true;
+// 	isLiveInput = false;
+// 	updatePitch();
+
+// 	return "stop";
+// }
 
 var rafID = null;
 var tracks = null;

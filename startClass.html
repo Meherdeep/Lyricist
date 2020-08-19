@@ -7,8 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description"
-		content="Lyricist helps get musical notes from online music classes automatically.">
+	<meta name="description" content="Lyricist helps get musical notes from online music classes automatically.">
 	<meta name="keywords" content="Lyricist, Agora, RTC, Video Call, Conference Call, Broadcast, SDK, CDN, Agora.io">
 	<meta name="author" content="Akshat Gupta">
 	<meta name="copyright" content="Akshat Gupta">
@@ -23,8 +22,7 @@
 	<meta name="og:site_name" content="Lyricist">
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="Lyricist">
-	<meta property="og:description"
-		content="Lyricist helps get musical notes from online music classes automatically.">
+	<meta property="og:description" content="Lyricist helps get musical notes from online music classes automatically.">
 	<meta property="og:url" content="https://lyricist.akshatvg.com/startClass">
 	<meta property="og:site_name" content="Lyricist">
 	<meta name="twitter:card" content="website">
@@ -35,8 +33,7 @@
 		content="Lyricist helps get musical notes from online music classes automatically.">
 	<meta name="twitter:creator" content="@akshatvg">
 	<meta itemprop="name" content="Lyricist">
-	<meta itemprop="description"
-		content="Lyricist helps get musical notes from online music classes automatically.">
+	<meta itemprop="description" content="Lyricist helps get musical notes from online music classes automatically.">
 	<link rel="canonical" href="https://lyricist.akshatvg.com/startClass">
 
 	<!-- Title -->
@@ -117,6 +114,18 @@
 						<i id="exit-icon" class="fas fa-phone-slash"></i>
 					</button>
 				</div>
+				<!-- Recording Btn -->
+				<div class="col-2 col-md-2 my-2 text-center">
+					<button id="record-btn" type="button" class="btn btn-actions-vc" onclick="toggleLiveInput()">
+						<i id="record-icon" class="fas fa-microphone-alt"></i>
+					</button>
+				</div>
+
+				<div id="detector" class="vague">
+					<div class="note"><span id="note">--</span></div>
+					<div class="final-note"></div>
+					<div id="paper"></div>
+				</div>
 			</div>
 			<!-- Full Screen Video -->
 			<div id="full-screen-video"></div>
@@ -126,7 +135,7 @@
 	<!-- Toast -->
 	<div class="toast">
 		<div class="toast-header">
-			Ending the Class
+			Ending the Class!
 		</div>
 		<div class="toast-body">
 			Hope you enjoyed. See you again soon!
@@ -174,6 +183,8 @@
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" type="text/javascript"></script>
 	<script src="https://cdn-agora.akshatvg.com/sdk-3.1.1.js"></script>
 	<script src="assets/js/goLive.js"></script>
+	<script src="assets/js/abcjs-min.js"></script>
+	<script src="assets/js/pitchdetect.js"></script>
 
 </body>
 
