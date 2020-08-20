@@ -10,9 +10,9 @@ app = FastAPI()
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--window-size=1920x1080")
-brower = webdriver.Chrome(chrome_options=chrome_options, executable_path="./chromedriver")
+brower = webdriver.Chrome(options=chrome_options, executable_path="./chromedriver")
 website_URL = "https://www.dcode.fr/music-sheet"
-
+import codecs
 
 def GetNodesScrapper(SOME_RANDOM_SHIT):
     brower.get(website_URL)
@@ -29,7 +29,8 @@ def GetNodesScrapper(SOME_RANDOM_SHIT):
     value = brower.find_element_by_name("download").get_attribute("value")
     print("stage6")
     fvalue = base64.b64decode(value).decode("utf-8")
-    return fvalue.replace("\\", '')[1:][:1]
+    return codecs.decode(fvalue, 'unicode_escape')
+
 
 
 @app.post("/getNodes")
