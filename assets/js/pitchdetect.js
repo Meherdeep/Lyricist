@@ -114,18 +114,15 @@ function gotStream(stream) {
 	updatePitch();
 }
 
-var counter = 0;
 function toggleLiveInput() {
 	audioContext.resume().then(() => {
 		console.log('Playback resumed successfully.');
+		$("#record-btn").prop("disabled", true);
 	});
 	isPlaying = true;
-	counter++;
-	if (counter % 2 == 0) {
-		$("#record-icon").removeClass("fa-microphone-slash");
-		$("#record-icon").addClass("fa-microphone-alt");
+	if (isPlaying) {
 		//stop playing and return
-		sourceNode.stop(0);
+		// sourceNode.stop(0);
 		sourceNode = null;
 		analyser = null;
 		isPlaying = false;
@@ -133,8 +130,6 @@ function toggleLiveInput() {
 			window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
 		window.cancelAnimationFrame(rafID);
 	}
-	$("#record-icon").removeClass("fa-microphone-alt");
-	$("#record-icon").addClass("fa-microphone-slash");
 	getUserMedia(
 		{
 			"audio": {
@@ -258,10 +253,29 @@ function updatePitch(time) {
 		noteElem.innerHTML = noteStrings[note % 12];
 		$(".final-note").append(noteStrings[note % 12] + "4, ");
 		// abcjs.renderAbc("paper", "X:1\nK:D\nDDAA|BBA2|\n");
-		
+
 	}
 
 	if (!window.requestAnimationFrame)
 		window.requestAnimationFrame = window.webkitRequestAnimationFrame;
 	rafID = window.requestAnimationFrame(updatePitch);
+}
+
+function generateSheet() {
+	document.getElementById("generate-sheet").disabled = true;
+	var nodes = document.getElementById("final-note").value;
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "http://127.0.0.1:8000/getNodes", true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify(nodes));
+	xhr.onload = function () {
+		if (this.status == 200 || this.status == 201) {
+			var data = JSON.parse(this.responseText);
+			window.open('musicSheet.html', '_blank');
+			$(".final-sheet").append(data);
+		} else {
+			console.log("Try Again");
+			document.getElementById("generate-sheet").disabled = false;
+		}
+	};
 }

@@ -49,8 +49,6 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/livestream.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css">
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 
 <body>
@@ -124,21 +122,10 @@
 				</div>
 				<div id="detector" class="vague">
 					<div class="note"><span id="note">--</span></div>
-					<div class="final-note"></div>
-					<div id="paper"></div>
+					<textarea id="final-note" class="final-note form-control"></textarea>
+					<button id="generate-sheet" class="btn btn-Lyricist my-3" onclick="generateSheet();">Generate
+						Sheet</button>
 				</div>
-				<form id="convert_from_abc_to_sheet" method="post">
-					<label for="convert_from_abc_to_sheet_notes_abc">Music Notes in English notation
-						(A,B,C,D,E,F,G)</label><br /><textarea name="notes_abc" id="convert_from_abc_to_sheet_notes_abc"
-						class="mini">C, D, E, F, G, A, B
-					A# A1 A2 A2b</textarea><br />
-					<button data-post="notes_abc" post="notes_abc">Write on Music Sheet</button>
-					<div class="cf "><span>See also:</span> <a href="/music-notes">Music Notes</a></div>
-				</form>
-				<!-- results -->
-				<div class="heading_bar"><span id="results_title">Results</span><span id="results_icons"></span></div>
-				<div id="results" translate="no" class="notranslate"></div>
-				<!-- !results -->
 			</div>
 			<!-- Full Screen Video -->
 			<div id="full-screen-video"></div>
@@ -197,10 +184,6 @@
 	<script src="https://cdn-agora.akshatvg.com/sdk-3.1.1.js"></script>
 	<script src="assets/js/goLive.js"></script>
 	<script src="assets/js/pitchdetect.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script src="assets/js/dcode.js"></script>
-	<script src="https://www.dcode.fr/include/js/jquery.cryptoarea.js"></script>
 
 </body>
 
