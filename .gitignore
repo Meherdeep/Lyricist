@@ -4,3 +4,6 @@ __pycache__
 Demos
 key_and_secret.txt
 .vscode
+venv
+DS_Store
+.idea
