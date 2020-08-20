@@ -274,10 +274,13 @@ function generateSheet() {
 			var data = JSON.parse(this.responseText);
 			console.log(data);
 			$("#final-sheet").append(data);
-			window.print().delay(99000);
 		} else {
 			console.log("Try Again");
 			document.getElementById("generate-sheet").disabled = false;
 		}
 	};
+}
+
+function printScreen() {
+	window.print();
 }
