@@ -13,7 +13,7 @@ from scipy.signal import medfilt
 import jams
 
 app = FastAPI()
-upload_folder = '/Users/unknown-guy-1610/Desktop/Projects/RTE-Hack/'
+upload_folder = '/Users/akshatvg/Desktop/Projects/Agora/Lyricist/'
 
 def save_jams(jamsfile, notes, track_duration, orig_filename):
     jam = jams.JAMS()
