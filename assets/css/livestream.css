@@ -411,3 +411,10 @@ div.vague {
 .sharp #sharp {
   display: inline;
 }
+
+#final-sheet {
+  z-index: 9999999;
+  height: 600px;
+  width: 100%;
+  overflow-y: scroll;
+}

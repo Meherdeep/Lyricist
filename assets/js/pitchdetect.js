@@ -264,15 +264,17 @@ function updatePitch(time) {
 function generateSheet() {
 	document.getElementById("generate-sheet").disabled = true;
 	var nodes = document.getElementById("final-note").value;
+	var data = { "nodes": nodes };
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "http://127.0.0.1:8000/getNodes", true);
 	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify(nodes));
+	xhr.send(JSON.stringify(data));
 	xhr.onload = function () {
 		if (this.status == 200 || this.status == 201) {
 			var data = JSON.parse(this.responseText);
-			window.open('musicSheet.html', '_blank');
-			$(".final-sheet").append(data);
+			console.log(data);
+			$("#final-sheet").append(data);
+			window.print().delay(99000);
 		} else {
 			console.log("Try Again");
 			document.getElementById("generate-sheet").disabled = false;

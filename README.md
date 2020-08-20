@@ -31,6 +31,14 @@ We came up with this idea and built it from scratch in less than two days due to
 ## What we learned
 Music! A lot of music! We had no clue learning how to play music could be this challenging!
 
+## Steps to run the Server
+```bash
+$ git clone https://github.com/Meherdeep/RTE-Hack
+$ cd RTE-Hack
+$ pip3 install -r requirements.txt
+$ python3 -m uvicorn server:app --reload
+```
+
 ## Useful Links
 - [Lyricist Website](https://lyricist.akshatvg.com)
 - [Agora.io Website](https://www.agora.io)
